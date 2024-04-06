@@ -30,3 +30,18 @@ class Category(Base):
     slug = Column(String, unique=True, index=True,)
 
 class Product(Base):
+    __tablename__ = 'products'
+
+    id = Column(Integer, primary_key=True, index=True,
+        autoincrement=True)
+    name = Column(String, unique=False, index=True,
+        nullable=False)
+    description = Column(String, unique=False, index=True,
+        nullable=False)
+    price = Column(Integer, unique=False, index=True,
+        nullable=False)
+    category_id = Column(Integer, ForeignKey('categories.id'))
+    category = relationship("Category", back_populates="products")
+    owner_id = Column(Integer, ForeignKey('users.id'))
+    owner = relationship("UserModel", back_populates="products")
+    slug = Column(String, unique=True, index=True,)
